@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reflect — voice notes into structured thinking</title>
+<meta name="description" content="Record a voice note and get it back as themes, tensions, and next actions." />
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link href="https://api.fontshare.com/v2/css?f[]=erode@400,500,600&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="brand">
+    <svg class="brand-mark" width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M16 9.5V16L20.5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="brand-name">Reflect</span>
+  </div>
+  <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch to dark mode">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+</header>
+
+<main id="main">
+  <section class="intro">
+    <h1>Turn a voice note into structure</h1>
+    <p class="intro-sub">Record what's on your mind. Get back the themes, the tensions, and what to do next.</p>
+  </section>
+
+  <div class="layout">
+    <section class="panel-column" aria-label="Recorder and results">
+
+      <div class="card recorder-card">
+        <div class="recorder-visual">
+          <button type="button" class="record-btn" id="recordBtn" aria-label="Start recording">
+            <svg id="micIcon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="9" y="2" width="6" height="12" rx="3"/>
+              <path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6" stroke-linecap="round"/>
+            </svg>
+            <svg id="stopIcon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+              <rect x="6" y="6" width="12" height="12" rx="2"/>
+            </svg>
+          </button>
+          <div class="pulse-ring" id="pulseRing" hidden></div>
+        </div>
+        <p class="recorder-status" id="recorderStatus" data-testid="text-status">Tap the mic to record a voice note</p>
+        <p class="recorder-timer" id="recorderTimer" hidden data-testid="text-timer">0:00</p>
+      </div>
+
+      <div class="card result-card" id="resultCard" hidden data-testid="card-result">
+        <div class="demo-banner" id="demoBanner" hidden>
+          Demo result shown — this note couldn't reach your OpenAI account, so this is a stand-in example.
+        </div>
+        <p class="result-summary" id="resultSummary" data-testid="text-summary"></p>
+
+        <div class="result-groups">
+          <div class="result-group" data-kind="themes">
+            <h2 class="result-group-title"><span class="dot dot-themes" aria-hidden="true"></span>Themes</h2>
+            <ul class="result-list" id="themesList" data-testid="list-themes"></ul>
+            <p class="result-empty" data-empty-for="themes" hidden>No clear themes surfaced.</p>
+          </div>
+          <div class="result-group" data-kind="tensions">
+            <h2 class="result-group-title"><span class="dot dot-tensions" aria-hidden="true"></span>Tensions</h2>
+            <ul class="result-list" id="tensionsList" data-testid="list-tensions"></ul>
+            <p class="result-empty" data-empty-for="tensions" hidden>No tensions surfaced.</p>
+          </div>
+          <div class="result-group" data-kind="actions">
+            <h2 class="result-group-title"><span class="dot dot-actions" aria-hidden="true"></span>Next actions</h2>
+            <ul class="result-list" id="actionsList" data-testid="list-actions"></ul>
+            <p class="result-empty" data-empty-for="actions" hidden>No next actions surfaced.</p>
+          </div>
+        </div>
+
+        <details class="transcript-toggle">
+          <summary>Full transcript</summary>
+          <p class="transcript-text" id="transcriptText" data-testid="text-transcript"></p>
+        </details>
+      </div>
+
+      <div class="card error-card" id="errorCard" hidden role="alert" data-testid="card-error">
+        <p id="errorText"></p>
+      </div>
+    </section>
+
+    <aside class="panel-column history-column" aria-label="Past reflections">
+      <h2 class="history-title">Past reflections</h2>
+      <ol class="history-list" id="historyList" data-testid="list-history"></ol>
+      <p class="history-empty" id="historyEmpty" data-testid="text-history-empty">Your recorded notes will show up here.</p>
+    </aside>
+  </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
